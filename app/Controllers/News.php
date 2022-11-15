@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\NewsModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use CodeIgniter\HTTP\ResponseInterface;
 
 class News extends BaseController
 {
@@ -14,7 +15,7 @@ class News extends BaseController
         $this->model = model(NewsModel::class);
     }
 
-    public function index()
+    public function index(): string
     {
         $data = [
             'news'  => $this->model->getNews(),
@@ -26,7 +27,7 @@ class News extends BaseController
             . view('templates/footer', $data);
     }
 
-    public function view($slug = null)
+    public function view($slug = null): string
     {
         $data['news'] = $this->model->getNews($slug);
 
@@ -41,7 +42,7 @@ class News extends BaseController
             . view('templates/footer', $data);
     }
 
-    public function create()
+    public function create(): string
     {
         helper('form');
 
@@ -63,7 +64,7 @@ class News extends BaseController
             . view('templates/footer');
     }
 
-    public function edit($id = '')
+    public function edit($id = ''): string
     {
         helper('form');
 
@@ -82,6 +83,9 @@ class News extends BaseController
             . view('templates/footer');
     }
 
+    /**
+     * @return ResponseInterface|string
+     */
     public function update()
     {
         $id = $this->request->getPost('id');
