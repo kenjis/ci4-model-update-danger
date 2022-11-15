@@ -34,6 +34,8 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 
 $routes->match(['get', 'post'], 'news/create', [News::class, 'create']);
+$routes->get('news/edit/(:num)', [News::class, 'edit']);
+$routes->post('news/update', [News::class, 'update']);
 $routes->get('news/(:segment)', [News::class, 'view']);
 $routes->get('news', [News::class, 'index']);
 

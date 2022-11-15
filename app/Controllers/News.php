@@ -62,4 +62,52 @@ class News extends Controller
             . view('news/create')
             . view('templates/footer');
     }
+
+    public function edit($id = '')
+    {
+        helper('form');
+
+        if ($id === '') {
+            throw new PageNotFoundException('Cannot find the news item: ' . $id);
+        }
+
+        $model = model(NewsModel::class);
+
+        $data['news'] = $model->find($id);
+
+        if (empty($data['news'])) {
+            throw new PageNotFoundException('Cannot find the news item: ' . $id);
+        }
+
+        return view('templates/header', ['title' => 'Edit news item'])
+            . view('news/edit', $data)
+            . view('templates/footer');
+    }
+
+    public function update()
+    {
+        $model = model(NewsModel::class);
+
+        if ($this->request->getMethod() === 'post' && $this->validate([
+            'title' => 'required|min_length[3]|max_length[255]',
+            'body'  => 'required',
+        ])) {
+            $id    = $this->request->getPost('id');
+            $title = $this->request->getPost('title');
+            $slug  = url_title($title, '-', true);
+
+            $data = [
+                'title' => $title,
+                'slug'  => $slug,
+                'body'  => $this->request->getPost('body'),
+            ];
+            $model->update($id, $data);
+
+            return $this->response->redirect(site_url('news/' . $slug));
+        }
+
+        return view('templates/header', ['title' => 'Edit news item'])
+            . view('news/edit')
+            . view('templates/footer');
+    }
 }
