@@ -41,6 +41,8 @@ class News extends Controller
 
     public function create()
     {
+        helper('form');
+
         $model = model(NewsModel::class);
 
         if ($this->request->getMethod() === 'post' && $this->validate([
