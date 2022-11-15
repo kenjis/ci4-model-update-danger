@@ -3,17 +3,21 @@
 namespace App\Controllers;
 
 use App\Models\NewsModel;
-use CodeIgniter\Controller;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
-class News extends Controller
+class News extends BaseController
 {
+    private NewsModel $model;
+
+    public function __construct()
+    {
+        $this->model = model(NewsModel::class);
+    }
+
     public function index()
     {
-        $model = model(NewsModel::class);
-
         $data = [
-            'news'  => $model->getNews(),
+            'news'  => $this->model->getNews(),
             'title' => 'News archive',
         ];
 
@@ -24,9 +28,7 @@ class News extends Controller
 
     public function view($slug = null)
     {
-        $model = model(NewsModel::class);
-
-        $data['news'] = $model->getNews($slug);
+        $data['news'] = $this->model->getNews($slug);
 
         if (empty($data['news'])) {
             throw new PageNotFoundException('Cannot find the news item: ' . $slug);
@@ -43,13 +45,11 @@ class News extends Controller
     {
         helper('form');
 
-        $model = model(NewsModel::class);
-
         if ($this->request->getMethod() === 'post' && $this->validate([
             'title' => 'required|min_length[3]|max_length[255]',
             'body'  => 'required',
         ])) {
-            $model->save([
+            $this->model->save([
                 'title' => $this->request->getPost('title'),
                 'slug'  => url_title($this->request->getPost('title'), '-', true),
                 'body'  => $this->request->getPost('body'),
@@ -71,9 +71,7 @@ class News extends Controller
             throw new PageNotFoundException('Cannot find the news item: ' . $id);
         }
 
-        $model = model(NewsModel::class);
-
-        $data['news'] = $model->find($id);
+        $data['news'] = $this->model->find($id);
 
         if (empty($data['news'])) {
             throw new PageNotFoundException('Cannot find the news item: ' . $id);
@@ -86,8 +84,6 @@ class News extends Controller
 
     public function update()
     {
-        $model = model(NewsModel::class);
-
         if ($this->request->getMethod() === 'post' && $this->validate([
             'title' => 'required|min_length[3]|max_length[255]',
             'body'  => 'required',
@@ -101,7 +97,7 @@ class News extends Controller
                 'slug'  => $slug,
                 'body'  => $this->request->getPost('body'),
             ];
-            $model->update($id, $data);
+            $this->model->update($id, $data);
 
             return $this->response->redirect(site_url('news/' . $slug));
         }
