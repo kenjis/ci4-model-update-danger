@@ -84,11 +84,12 @@ class News extends BaseController
 
     public function update()
     {
+        $id = $this->request->getPost('id');
+
         if ($this->request->getMethod() === 'post' && $this->validate([
             'title' => 'required|min_length[3]|max_length[255]',
             'body'  => 'required',
         ])) {
-            $id    = $this->request->getPost('id');
             $title = $this->request->getPost('title');
             $slug  = url_title($title, '-', true);
 
@@ -102,8 +103,6 @@ class News extends BaseController
             return $this->response->redirect(site_url('news/' . $slug));
         }
 
-        return view('templates/header', ['title' => 'Edit news item'])
-            . view('news/edit')
-            . view('templates/footer');
+        return $this->edit($id);
     }
 }
