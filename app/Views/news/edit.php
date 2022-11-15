@@ -6,10 +6,10 @@
     <?= csrf_field() ?>
 
     <label for="title">Title</label>
-    <input type="input" name="title" value="<?= esc($news['title'], 'attr') ?>" size="50"/><br />
+    <input type="input" name="title" value="<?= esc($news['title'], 'attr') ?>" size="50"><br>
 
     <label for="body">Text</label>
-    <textarea name="body" cols="80" rows="5"><?= esc($news['body']) ?></textarea><br />
+    <textarea name="body" cols="80" rows="5"><?= esc($news['body']) ?></textarea><br>
 
     <input type="submit" name="submit" value="Update news item">
     <input type="hidden" name="id" value="<?= esc($news['id'], 'attr') ?>">
