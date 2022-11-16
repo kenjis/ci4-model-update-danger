@@ -102,7 +102,7 @@ class News2 extends BaseController
      */
     public function postUpdate($id = false)
     {
-        if ($this->request->getMethod() === 'post' && $this->validate([
+        if ($this->validate([
             'title' => 'required|min_length[3]|max_length[255]',
             'body'  => 'required',
         ])) {
