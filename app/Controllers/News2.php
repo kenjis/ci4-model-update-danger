@@ -60,7 +60,7 @@ class News2 extends BaseController
     {
         if ($this->validate([
             'title' => 'required|min_length[3]|max_length[255]',
-            'body'  => 'required',
+            'body'  => 'required|min_length[10]|max_length[5000]',
         ])) {
             $this->model->save([
                 'title' => $this->request->getPost('title'),
@@ -104,7 +104,7 @@ class News2 extends BaseController
     {
         if ($this->validate([
             'title' => 'required|min_length[3]|max_length[255]',
-            'body'  => 'required',
+            'body'  => 'required|min_length[10]|max_length[5000]',
         ])) {
             $title = $this->request->getVar('title');
             $slug  = url_title($title, '-', true);
