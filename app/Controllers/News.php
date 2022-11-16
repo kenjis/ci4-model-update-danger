@@ -22,6 +22,8 @@ class News extends BaseController
             'title' => 'News archive',
         ];
 
+        $data['controller'] = strtolower(class_basename(__CLASS__));
+
         return view('templates/header', $data)
             . view('news/overview', $data)
             . view('templates/footer', $data);
@@ -35,7 +37,8 @@ class News extends BaseController
             throw new PageNotFoundException('Cannot find the news item: ' . $slug);
         }
 
-        $data['title'] = $data['news']['title'];
+        $data['title']      = $data['news']['title'];
+        $data['controller'] = strtolower(class_basename(__CLASS__));
 
         return view('templates/header', $data)
             . view('news/view', $data)
@@ -59,8 +62,10 @@ class News extends BaseController
             return view('news/success');
         }
 
+        $data['controller'] = strtolower(class_basename(__CLASS__));
+
         return view('templates/header', ['title' => 'Create a news item'])
-            . view('news/create')
+            . view('news/create', $data)
             . view('templates/footer');
     }
 
@@ -77,6 +82,8 @@ class News extends BaseController
         if (empty($data['news'])) {
             throw new PageNotFoundException('Cannot find the news item: ' . $id);
         }
+
+        $data['controller'] = strtolower(class_basename(__CLASS__));
 
         return view('templates/header', ['title' => 'Edit news item'])
             . view('news/edit', $data)

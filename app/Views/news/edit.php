@@ -2,7 +2,7 @@
 
 <?= validation_list_errors(); ?>
 
-<form action="/news/update" method="post">
+<form action="<?= site_url($controller . '/update') ?>" method="post">
     <?= csrf_field() ?>
 
     <label for="title">Title</label>
