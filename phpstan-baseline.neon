@@ -7,7 +7,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method CodeIgniter\\\\HTTP\\\\RequestInterface\\:\\:getPost\\(\\)\\.$#"
-			count: 6
 			path: app/Controllers/*
 
 		-
@@ -15,5 +14,8 @@ parameters:
 				#^Call to deprecated method getMethod\\(\\) of class CodeIgniter\\\\HTTP\\\\OutgoingRequestInterface\\:
 				The \\$upper functionality will be removed and this will revert to its PSR\\-7 equivalent$#
 			"""
-			count: 2
+			path: app/Controllers/*
+
+		-
+			message: "#^Call to an undefined method CodeIgniter\\\\HTTP\\\\RequestInterface\\:\\:getVar\\(\\)\\.$#"
 			path: app/Controllers/*
