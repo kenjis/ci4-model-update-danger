@@ -10,6 +10,14 @@ class News2 extends BaseController
 {
     private NewsModel $model;
 
+    /**
+     * Validation Rules
+     */
+    private array $rules = [
+        'title' => 'required|min_length[3]|max_length[255]',
+        'body'  => 'required|min_length[10]|max_length[5000]',
+    ];
+
     public function __construct()
     {
         $this->model = model(NewsModel::class);
@@ -58,10 +66,7 @@ class News2 extends BaseController
 
     public function postCreate(): string
     {
-        if ($this->validate([
-            'title' => 'required|min_length[3]|max_length[255]',
-            'body'  => 'required|min_length[10]|max_length[5000]',
-        ])) {
+        if ($this->validate($this->rules)) {
             $this->model->save([
                 'title' => $this->request->getPost('title'),
                 'slug'  => url_title($this->request->getPost('title'), '-', true),
@@ -102,10 +107,7 @@ class News2 extends BaseController
      */
     public function postUpdate($id = false)
     {
-        if ($this->validate([
-            'title' => 'required|min_length[3]|max_length[255]',
-            'body'  => 'required|min_length[10]|max_length[5000]',
-        ])) {
+        if ($this->validate($this->rules)) {
             $title = $this->request->getVar('title');
             $slug  = url_title($title, '-', true);
 

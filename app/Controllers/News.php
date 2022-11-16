@@ -10,6 +10,14 @@ class News extends BaseController
 {
     private NewsModel $model;
 
+    /**
+     * Validation Rules
+     */
+    private array $rules = [
+        'title' => 'required|min_length[3]|max_length[255]',
+        'body'  => 'required|min_length[10]|max_length[5000]',
+    ];
+
     public function __construct()
     {
         $this->model = model(NewsModel::class);
@@ -49,10 +57,7 @@ class News extends BaseController
     {
         helper('form');
 
-        if ($this->request->getMethod() === 'post' && $this->validate([
-            'title' => 'required|min_length[3]|max_length[255]',
-            'body'  => 'required|min_length[10]|max_length[5000]',
-        ])) {
+        if ($this->request->getMethod() === 'post' && $this->validate($this->rules)) {
             $this->model->save([
                 'title' => $this->request->getPost('title'),
                 'slug'  => url_title($this->request->getPost('title'), '-', true),
@@ -97,10 +102,7 @@ class News extends BaseController
     {
         $id = $this->request->getPost('id');
 
-        if ($this->request->getMethod() === 'post' && $this->validate([
-            'title' => 'required|min_length[3]|max_length[255]',
-            'body'  => 'required|min_length[10]|max_length[5000]',
-        ])) {
+        if ($this->request->getMethod() === 'post' && $this->validate($this->rules)) {
             $title = $this->request->getPost('title');
             $slug  = url_title($title, '-', true);
 
