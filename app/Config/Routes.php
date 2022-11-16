@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Controllers\Home;
 use App\Controllers\News;
 
 // Create a new instance of our RouteCollection class.
@@ -29,7 +30,7 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', [News::class, 'index']);
+$routes->get('/', [Home::class, 'index']);
 
 $routes->match(['get', 'post'], 'news/create', [News::class, 'create']);
 $routes->get('news/edit/(:num)', [News::class, 'edit']);

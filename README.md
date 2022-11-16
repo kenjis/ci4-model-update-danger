@@ -14,7 +14,7 @@ $ composer install
 $ php spark serve
 ```
 
-Navigate to <http://localhost:8080/>. You will see CodeIgniter News Tutorial.
+Navigate to <http://localhost:8080/>. You will see links to News controllers.
 
 You can add sample news articles with Seeder.
 
