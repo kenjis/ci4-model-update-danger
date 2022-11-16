@@ -2,6 +2,11 @@
 <html>
 <head>
     <title>CodeIgniter Tutorial</title>
+    <style>
+        div {
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
 
