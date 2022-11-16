@@ -49,7 +49,16 @@ class News2 extends BaseController
     {
         helper('form');
 
-        if ($this->request->getMethod() === 'post' && $this->validate([
+        $data['controller'] = strtolower(class_basename(__CLASS__));
+
+        return view('templates/header', ['title' => 'Create a news item'])
+            . view('news/create', $data)
+            . view('templates/footer');
+    }
+
+    public function postCreate(): string
+    {
+        if ($this->validate([
             'title' => 'required|min_length[3]|max_length[255]',
             'body'  => 'required',
         ])) {
@@ -62,15 +71,6 @@ class News2 extends BaseController
             return view('news/success');
         }
 
-        $data['controller'] = strtolower(class_basename(__CLASS__));
-
-        return view('templates/header', ['title' => 'Create a news item'])
-            . view('news/create', $data)
-            . view('templates/footer');
-    }
-
-    public function postCreate(): string
-    {
         return $this->getCreate();
     }
 
