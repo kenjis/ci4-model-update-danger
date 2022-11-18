@@ -4,6 +4,7 @@ namespace Config;
 
 use App\Controllers\Home;
 use App\Controllers\News;
+use App\Controllers\News3;
 
 // Create a new instance of our RouteCollection class.
 $routes = Services::routes();
@@ -37,6 +38,12 @@ $routes->get('news/edit/(:num)', [News::class, 'edit']);
 $routes->post('news/update', [News::class, 'update']);
 $routes->get('news/(:segment)', [News::class, 'view']);
 $routes->get('news', [News::class, 'index']);
+
+$routes->match(['get', 'post'], 'news3/create', [News3::class, 'create']);
+$routes->get('news3/edit/(:num)', [News3::class, 'edit']);
+$routes->post('news3/update', [News3::class, 'update']);
+$routes->get('news3/(:segment)', [News3::class, 'view']);
+$routes->get('news3', [News3::class, 'index']);
 
 /*
  * --------------------------------------------------------------------

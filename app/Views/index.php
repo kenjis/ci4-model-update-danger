@@ -14,6 +14,7 @@
 <ul>
     <li><a href="./news/">News</a></li>
     <li><a href="./news2/">News2</a></li>
+    <li><a href="./news3/">News3</a></li>
 </ul>
 
 </body>
