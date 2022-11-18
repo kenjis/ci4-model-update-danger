@@ -2,6 +2,11 @@
 
 This sample code contains vulnerabilities.
 
+> **Warning**
+> **Do not use**. **Do not code like these**.
+
+The vulnerabilities can be exploited to destroy data in the database.
+
 ## Setup
 
 ```console
